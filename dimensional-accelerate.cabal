@@ -1,0 +1,46 @@
+name:                dimensional-accelerate
+version:             0.1.0.0
+-- description:         
+homepage:            https://github.com/albertov/dimensional-accelerate
+synopsis:            Numeric.Units.Dimensional lifted to Accelerate expressions
+license:             BSD3
+license-file:        LICENSE
+author:              Alberto Valverde González
+maintainer:          alberto@toscat.net
+-- copyright:           
+category:            Data
+build-type:          Simple
+extra-source-files:  ChangeLog.md
+cabal-version:       >=1.10
+
+library
+  hs-source-dirs:      src
+  build-depends:
+      base        >= 4.9 && <4.11
+    , accelerate  >= 1.0 && <1.1
+    , dimensional >= 1.0.1.3
+  exposed-modules: Numeric.Units.Dimensional.Accelerate
+                 , Numeric.Units.Dimensional.Accelerate.Prelude
+  ghc-options:
+    -Wall
+    -fwarn-incomplete-patterns
+    -fwarn-incomplete-uni-patterns
+  default-language:    Haskell2010
+
+test-suite spec
+  type:             exitcode-stdio-1.0
+  build-depends:
+      base
+    , hspec                >= 1.10.0
+    , dimensional-accelerate
+    , accelerate
+    , accelerate-llvm-native
+    , QuickCheck
+    , dimensional
+  hs-source-dirs:   test
+  other-modules: Numeric.Units.Dimensional.AccelerateSpec
+  main-is:          Spec.hs
+  default-language: Haskell2010
+  ghc-options:      -Wall
+                    -fwarn-incomplete-patterns
+                    -fwarn-incomplete-uni-patterns
