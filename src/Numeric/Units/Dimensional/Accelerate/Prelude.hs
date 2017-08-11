@@ -66,30 +66,31 @@ negate :: forall u a. (EltQuantity u a, Num (Exp a))
        -> Exp (Quantity u a)
 negate = A.lift1 (DP.negate :: Quantity u (Exp a) -> Quantity u (Exp a))
 
-(+) :: forall u a. (Real a, Elt a, Num (Exp a), Typeable u, HasDimension (Proxy u))
+(+) :: forall u a. (Real a, Elt a, A.IsScalar a, Num (Exp a), Typeable u, HasDimension (Proxy u))
     => Exp (Quantity u a)
     -> Exp (Quantity u a)
     -> Exp (Quantity u a)
 (+) = A.lift2 ((DP.+) :: Quantity u (Exp a) -> Quantity u (Exp a) -> Quantity u (Exp a))
 
-(-) :: forall u a. (Real a, Elt a, Num (Exp a), Typeable u, HasDimension (Proxy u))
+(-) :: forall u a. (Real a, Elt a, A.IsScalar a, Num (Exp a), Typeable u, HasDimension (Proxy u))
     => Exp (Quantity u a)
     -> Exp (Quantity u a)
     -> Exp (Quantity u a)
 (-) = A.lift2 ((DP.-) :: Quantity u (Exp a) -> Quantity u (Exp a) -> Quantity u (Exp a))
 
-abs :: forall u a. (Real a, Elt a, Num (Exp a), Typeable u, HasDimension (Proxy u))
+abs :: forall u a. (Real a, Elt a, A.IsScalar a, Num (Exp a), Typeable u, HasDimension (Proxy u))
     => Exp (Quantity u a)
     -> Exp (Quantity u a)
 abs = A.lift1 (DP.abs :: Quantity u (Exp a) -> Quantity u (Exp a))
 
-signum :: forall u a. (Real a, Elt a, Num (Exp a), Typeable u, HasDimension (Proxy u))
+signum :: forall u a. (Real a, Elt a, A.IsScalar a, Num (Exp a), Typeable u, HasDimension (Proxy u))
        => Exp (Quantity u a) -> Exp (Dimensionless a)
 signum = A.lift1 (DP.signum :: Quantity u (Exp a) -> Quantity DOne (Exp a))
 
 sqrt :: forall u a.
      ( Elt a
      , A.Floating a
+     , A.IsScalar a
      , Real a
      , Typeable u
      , HasDimension (Proxy u)
@@ -101,7 +102,7 @@ sqrt = A.lift1 (DP.sqrt :: Quantity u (Exp a) -> Quantity (Sqrt u) (Exp a))
 
 
 exp, log, sin, cos, tan, asin, acos, atan, sinh, cosh, tanh, asinh, acosh, atanh
-  :: forall a. (Floating (Exp a), Real a, Elt a)
+  :: forall a. (Floating (Exp a), A.IsScalar a, Real a, Elt a)
   => Exp (Dimensionless a) -> Exp (Dimensionless a)
 exp   = A.lift1 (DP.exp :: Quantity DOne (Exp a) -> Quantity DOne (Exp a))
 log   = A.lift1 (DP.log :: Quantity DOne (Exp a) -> Quantity DOne (Exp a))
